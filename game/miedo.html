@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terror</title>
+    <style>
+        body{
+            background-color: black;
+        }
+        canvas {
+            border:1px solid #d3d3d3;
+    background-color: black;
+        }
+        p,h1{
+            color: white;
+        }
+        </style>
+        
+</head>
+<body onload="startGame()">
+    
+    <script>
+    
+    var myGamePiece;
+    var myObstacle;
+    var myObstacle1;
+    var myObstacle2;
+    var myObstacle3;
+    var myMusic;
+    function startGame() {
+        myGamePiece = new component(10, 10, "personaje1.gif",20, 520,"image");
+        myObstacle  = new component(470, 10, "green", 0, 505);  
+        myObstacle1= new component(15, 50, "green", 455, 455);
+        myObstacle2= new component(470,10,"green",0,455)  ;
+        myObstacle3= new component(250,10,"green",10,420)  ;
+        myObstacle4= new component(210,10,"green",290,420)  ;
+        myObstacle5= new component(500, 10, "green", 0, 540);
+        myObstacle6= new component(10, 400, "green", 490, 430);
+        myObstacle7= new component(10, 30, "green", 0, 510);
+        myObstacle8= new component(10, 40, "green", 0, 420  );
+        myObstacle9= new component(10, 275, "green", 255, 40 );
+        myObstacle10= new component(15, 250, "green", 280, 40 );
+        myObstacle11= new component(60, 55, "cara.gif", 245, -5,"image" );
+        myObstacle12= new component(10, 50, "green", 285, 380 );
+        myObstacle13= new component(10, 80, "green", 260, 350 );
+        myObstacle14= new component(110,10,"green",285,370)  ;
+        myObstacle15= new component(110,10,"green",260,340)  ;
+        myObstacle16= new component(125,10,"green",280    ,290)  ;
+        myObstacle17= new component(115,10,"green",255,315)  ;
+        myObstacle18= new component(10, 80, "green", 395, 300 );
+        myObstacle19= new component(10, 35, "green", 370, 315 );
+
+        myMusic = new sound("fondo.mp3");
+    myMusic.play();
+        myGameArea.start();
+    }
+    
+    var myGameArea = {
+    canvas : document.createElement("canvas"),
+    start : function() {
+        this.canvas.width = 500;
+        this.canvas.height = 550;
+        this.canvas.style.cursor = "green"; //hide the original cursor
+        this.context = this.canvas.getContext("2d");
+        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+        this.interval = setInterval(updateGameArea, 20);
+        window.addEventListener('keydown', function (e) {
+      myGameArea.key = e.keyCode;
+    })
+    window.addEventListener('keyup', function (e) {
+      myGameArea.key = false;
+    })
+  }, 
+    clear : function() {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    },
+    stop : function() {
+        clearInterval(this.interval);
+    }
+}
+function component(width, height, color, x, y,type) {
+    this.type = type;
+  if (type == "image") {
+    this.image = new Image();
+    this.image.src = color;
+  }
+    this.width = width;
+    this.height = height;
+    this.speedX = 0;
+    this.speedY = 0;    
+    this.x = x;
+    this.y = y;    
+    this.update = function() {
+        ctx = myGameArea.context;
+        if (type == "image") {
+      ctx.drawImage(this.image,
+        this.x,
+        this.y,
+        this.width, this.height);
+    } else {
+        ctx = myGameArea.context;
+      ctx.fillStyle = color;
+      ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
+
+    }
+    this.crashWith = function(otherobj) {
+        var myleft = this.x;
+        var myright = this.x + (this.width);
+        var mytop = this.y;
+        var mybottom = this.y + (this.height);
+        var otherleft = otherobj.x;
+        var otherright = otherobj.x + (otherobj.width);
+        var othertop = otherobj.y;
+        var otherbottom = otherobj.y + (otherobj.height);
+        var crash = true;
+        if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
+            crash = false;
+            
+        }
+        
+        return crash;
+        
+        
+    }
+}
+
+function updateGameArea() {
+    myGameArea.clear();
+    myGamePiece.speedX = 0;
+  myGamePiece.speedY = 0;
+  if (myGameArea.key && myGameArea.key == 37) {myGamePiece.speedX = -1; }
+  if (myGameArea.key && myGameArea.key == 39) {myGamePiece.speedX = 1; }
+  if (myGameArea.key && myGameArea.key == 38) {myGamePiece.speedY = -1; }
+  if (myGameArea.key && myGameArea.key == 40) {myGamePiece.speedY = 1; }
+    if (myGameArea.x && myGameArea.y) {
+        myGamePiece.x = myGameArea.x;
+        myGamePiece.y = myGameArea.y;        
+    }
+    myGamePiece.update();
+    if ((myGamePiece.crashWith(myObstacle)) || (myGamePiece.crashWith(myObstacle1)) || (myGamePiece.crashWith(myObstacle2)) || (myGamePiece.crashWith(myObstacle3)) || (myGamePiece.crashWith(myObstacle4)) || (myGamePiece.crashWith(myObstacle5)) || (myGamePiece.crashWith(myObstacle6)) || (myGamePiece.crashWith(myObstacle7)) || (myGamePiece.crashWith(myObstacle8)) || (myGamePiece.crashWith(myObstacle9)) || (myGamePiece.crashWith(myObstacle10)) || (myGamePiece.crashWith(myObstacle19)) || (myGamePiece.crashWith(myObstacle12)) || (myGamePiece.crashWith(myObstacle13)) || (myGamePiece.crashWith(myObstacle14)) || (myGamePiece.crashWith(myObstacle15)) || (myGamePiece.crashWith(myObstacle16)) || (myGamePiece.crashWith(myObstacle17)) || (myGamePiece.crashWith(myObstacle18)) ) {
+        myGameArea.stop();
+        window.location.replace("miedo.html");
+    
+    } else {
+        myGameArea.clear();
+        myObstacle.update();
+        myObstacle1.update();
+        myObstacle2.update();
+        myObstacle3.update();
+        myObstacle4.update();
+        myObstacle5.update();
+        myObstacle6.update();
+        myObstacle7.update();
+        myObstacle8.update();
+        myObstacle9.update();
+        myObstacle10.update();
+        myObstacle11.update();
+        myObstacle12.update();
+        myObstacle13.update();
+        myObstacle14.update();
+        myObstacle15.update();
+        myObstacle16.update();
+        myObstacle17.update();
+        myObstacle18.update();
+        myObstacle19.update();
+        myGamePiece.x += myGamePiece.speedX;
+        myGamePiece.y += myGamePiece.speedY;    
+        myGamePiece.update();
+    }
+
+    if ((myGamePiece.crashWith(myObstacle11)))
+    {
+        myGameArea.stop();
+        window.location.replace("scream.html");
+    } 
+}
+function sound(src) {
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+    this.play = function(){
+        this.sound.play();
+    }
+    this.stop = function(){
+        this.sound.pause();
+    }    
+}
+
+    
+    </script>
+
+<h1>
+    JUEGO DEL LABERINTO
+</h1>
+<p>Para Jugar este juego usarás, las flechas de tu teclado y tendras que evitar tocar los obstáculos. LLega a los obstáculos usando tu habilidad.</p>
+
+    
+    </body>
+</html>

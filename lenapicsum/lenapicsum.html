@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>Lena Picsum</title>
+</head>
+<body>
+   <section class="instrucciones">
+      <h4>INSTRUCCIONES:</h4>
+    <p>1. Para comenzar a usar esta unión de apis, presiona el botón obtener imagen, para generar una imagen aleatoria que luego será filtrada.</p>
+    <p>2. Entre los 22 filtros existentes elige el, o los de tu preferencia para aplicar a la imagen.</p>
+    <p>3. Presiona el boton de filtrar imagen y observa los cambios en la imagen filtrada.</p>
+    <h4>NOTAS:</h4>
+    <p>-Si deseas volver la imagen al estado original, quita el chekbox de todos los filtros y presiona el boton filtrar imagen.</p>
+    <p>-Puedes usar varios filtros a la vez, pero al fusionar algunos no habra un gran cambio.</p>
+   </section>
+    <script src="node_modules/lena.js/dist/browser.js"></script>
+    <header class="header">
+        <section class="container logo-nav-container" >
+            <a href="/practica/index.html" ><img src="img/logo.png" class="logo-nav-container"></a>
+            <h3>LenaPicsum</h3>
+            <nav class="navigation">
+                <ul>
+                  <li><a href="index.html" >Inicio</a></li>
+                  <li><a href="lorem.html" >Lorem Picsum</a></li>
+                  <li><a href="lena.html" >Lenna JS</a></li>
+                  <li><a href="lenapicsum.html" >Apis Unidas</a></li>
+                </ul>
+            </nav>
+        </section>
+    
+    </header>
+    <section class="contenido">
+        <img id="imagen" src="" />
+        <br>
+        <button onclick="getImage()">Obtener imagen</button>
+        
+    </section>
+
+
+
+
+    <h4>PIXEL TO PIXEL</h4>
+    
+    <section class="filtros">
+        
+        
+            <label>Grayscale</label>
+            <input type="checkbox" id="filtro1"  >
+            <label>Sepia</label>
+            <input type="checkbox" id="filtro2">
+            <label>TreshHolding-128</label>
+            <input type="checkbox" id="filtro3">
+            <label>Invert</label>
+            <input type="checkbox" id="filtro4">
+            <label>Saturation</label>
+            <input type="checkbox" id="filtro5">
+            <label>Red</label>
+            <input type="checkbox" id="filtro6">
+            <label>Green</label>
+            <input type="checkbox" id="filtro7">
+            <label>Blue</label>
+            <input type="checkbox" id="filtro8">
+            <label>Mirror</label>
+            <input type="checkbox" id="filtro9">
+        
+
+        
+    </section>
+    <h4>EDGE/LINE DETECTION </h4>
+    <section class="filtros2"></section>
+    <label>Roberts</label>
+    <input type="checkbox" id="filtro10">
+    <label>Sharpen</label>
+    <input type="checkbox" id="filtro11">
+    <label>Sobel Y</label>
+    <input type="checkbox" id="filtro12">
+    <label>Sobel X</label>
+    <input type="checkbox" id="filtro13">
+    <label>Highpass</label>
+    <input type="checkbox" id="filtro14">
+    <label>Lowpass(3x3)</label>
+    <input type="checkbox" id="filtro15">
+    <label>Lowpass(5x5)</label>
+    <input type="checkbox" id="filtro16">
+    <label>Laplacian</label>
+    <input type="checkbox" id="filtro17">
+    <label>Gaussian</label>
+    <input type="checkbox" id="filtro18">
+    <label>Biggaussian</label>
+    <input type="checkbox" id="filtro19">
+    <label>Prewitt Y</label>
+    <input type="checkbox" id="filtro20">
+    <label>Prewitt X</label>
+    <input type="checkbox" id="filtro21">
+    <label>Canny</label>
+    <input type="checkbox" id="filtro22">
+    </section>
+    <footer class="footer">
+      <section class="container">
+          <p>Jose Adrian Orellana Paredes</p>
+          <a href="mailto:adriorellana90@gmail.com?subject=Questions">Mi correo electrónico</a>
+          <br>
+          <a href="tel:0983924732?subject=Questions">Mi número de telefono</a>
+          <p>&#169 Todos los derechos reservados</p>
+      </section>
+  </footer>
+    <section class="filtrado">
+        <canvas id="filtered-image">
+        </canvas>
+        <button onclick="filtrarImagen()">Filtrar imagen</button>
+        
+
+    </section>
+       <script type="text/javascript" >
+        
+           var url = "https://picsum.photos/200/300";
+           function getImage(){
+           var imagen = document.getElementById("imagen");
+           imagen.crossOrigin="Anonymous";
+           fetch(url).then(response => {
+           console.log(response);
+           imagen.src= response.url;
+           }).catch(error => {
+           console.log(error);
+           alert('Ha ocurrido un error!');
+           });
+           }
+          
+           function filtrarImagen(){
+            var imagen = document.getElementById("imagen");
+             var filteredImageCanvas = document.getElementById("filtered-image");
+             filtro1 = LenaJS["mirror"]
+            LenaJS.filterImage(filteredImageCanvas, filtro1, imagen)
+            LenaJS.redrawCanvas(filteredImageCanvas, filtro1)
+            if (document.getElementById('filtro1').checked)
+        {
+           
+             var filter = LenaJS["grayscale"];
+           LenaJS.redrawCanvas(filteredImageCanvas, filter);
+        }
+        if (document.getElementById('filtro2').checked)
+        {
+           
+             var filter = LenaJS["sepia"];
+           LenaJS.redrawCanvas(filteredImageCanvas, filter);
+        }
+        if (document.getElementById('filtro3').checked)
+        {
+           
+             var filter = LenaJS["thresholding"];
+           LenaJS.redrawCanvas(filteredImageCanvas, filter);
+        }
+        if (document.getElementById('filtro4').checked)
+        {
+           
+             var filter = LenaJS["invert"];
+           LenaJS.redrawCanvas(filteredImageCanvas, filter);
+        }
+
+        if (document.getElementById('filtro5').checked)
+        {
+           
+             var filter = LenaJS["saturation"];
+           LenaJS.redrawCanvas(filteredImageCanvas, filter);
+        }
+        if (document.getElementById('filtro6').checked)
+        {
+           
+             var filter = LenaJS["red"];
+           LenaJS.redrawCanvas(filteredImageCanvas, filter);
+        }
+        if (document.getElementById('filtro7').checked)
+        {
+           
+             var filter = LenaJS["green"];
+           LenaJS.redrawCanvas(filteredImageCanvas, filter);
+        }
+
+        if (document.getElementById('filtro8').checked)
+        {
+           
+             var filter = LenaJS["blue"];
+           LenaJS.redrawCanvas(filteredImageCanvas, filter);
+        }
+        if (document.getElementById('filtro9').checked)
+        {
+           
+             var filter = LenaJS["mirror"];
+           LenaJS.redrawCanvas(filteredImageCanvas, filter);
+        }
+        if (document.getElementById('filtro10').checked)
+        {
+           
+             var filter = LenaJS["roberts"];
+           LenaJS.redrawCanvas(filteredImageCanvas, filter);
+        }
+        if (document.getElementById('filtro11').checked)
+        {
+           
+             var filter = LenaJS["sharpen"];
+           LenaJS.redrawCanvas(filteredImageCanvas, filter);
+        }
+        if (document.getElementById('filtro12').checked)
+        {
+           
+             var filter = LenaJS["sobelVertical"];
+           LenaJS.redrawCanvas(filteredImageCanvas, filter);
+        }
+        if (document.getElementById('filtro13').checked)
+        {
+           
+             var filter = LenaJS["sobelHorizontal"];
+           LenaJS.redrawCanvas(filteredImageCanvas, filter);
+        }
+        if (document.getElementById('filtro14').checked)
+        {
+           
+             var filter = LenaJS["highpass"];
+           LenaJS.redrawCanvas(filteredImageCanvas, filter);
+        }
+        if (document.getElementById('filtro15').checked)
+        {
+           
+             var filter = LenaJS["lowpass3"];
+           LenaJS.redrawCanvas(filteredImageCanvas, filter);
+        }
+        if (document.getElementById('filtro16').checked)
+        {
+           
+             var filter = LenaJS["lowpass5"];
+           LenaJS.redrawCanvas(filteredImageCanvas, filter);
+        }
+        if (document.getElementById('filtro17').checked)
+        {
+           
+             var filter = LenaJS["laplacian"];
+           LenaJS.redrawCanvas(filteredImageCanvas, filter);
+        }
+        if (document.getElementById('filtro18').checked)
+        {
+           
+             var filter = LenaJS["gaussian"];
+           LenaJS.redrawCanvas(filteredImageCanvas, filter);
+        }
+        if (document.getElementById('filtro19').checked)
+        {
+           
+             var filter = LenaJS["bigGaussian"];
+           LenaJS.redrawCanvas(filteredImageCanvas, filter);
+        }
+        if (document.getElementById('filtro20').checked)
+        {
+           
+             var filter = LenaJS["prewittVertical"];
+           LenaJS.redrawCanvas(filteredImageCanvas, filter);
+        }
+        if (document.getElementById('filtro21').checked)
+        {
+           
+             var filter = LenaJS["prewittHorizontal"];
+           LenaJS.redrawCanvas(filteredImageCanvas, filter);
+        }
+        if (document.getElementById('filtro22').checked)
+        {
+           
+             var filter = LenaJS["canny"];
+           LenaJS.redrawCanvas(filteredImageCanvas, filter);
+        }
+
+        if (document.getElementById('filtro22').checked)
+        {
+           
+             var filter = LenaJS["canny"];
+           LenaJS.redrawCanvas(filteredImageCanvas, filter);
+        }
+        
+
+        
+
+           }
+
+          </script>
+    
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/style2.css">
+    <title>Main characters</title>
+</head>
+<body>
+   <section class="instrucciones">
+      <h1>YOUR CHARACTER</h1>
+   </section>
+   
+    <header class="header">
+        <section class="container logo-nav-container" >
+            <a href="/practica/index.html" ><img src="img/logo.png" class="logo-nav-container"></a>
+            <nav class="navigation">
+                <ul>
+                    <li><a href="index.html" >Home</a></li>
+                    <li><a href="creator.html" >Creator</a></li>
+                    <li><a href="principals.html" >Main characters </a></li>
+                    <li><a href="character.html" >What character would you be?</a></li>
+                </ul>
+            </nav>
+        </section>
+    
+    </header>
+    <button id="character" onclick="randomCharacter()">What character would you be?</button>
+    <section id= 'elemen' class="character1">
+
+    </section>
+    <script >
+        const id= document.getElementById("character");
+
+
+function randomCharacter(){
+let inicio=1;
+let fin =826;
+let random= inicio+Math.floor(Math.random()*fin);
+console.log(random);
+const url = 'https://rickandmortyapi.com/api/character/'+random;
+    fetch(url)
+.then(response => response.json())
+.then(data => {
+    let element=document.getElementById('elemen')
+    element.innerHTML = `
+    <h2>${data.name}</h2>
+    <img src='${data.image}'/>
+    <h3>Species: </h3> <p>${data.species}</p>
+    <h3>Gender: </h3> <p>${data.gender}</p>
+    <h3>Location: </h3> <p> ${data.location.name}</p>
+    <h3>Status: </h3> <p> ${data.status}</p>
+    `;
+    console.log( data)
+})
+
+
+
+
+.catch(err=>console.log(err))
+
+}
+
+    </script>
+    <footer class="footer">
+      <section class="container">
+          <p>Jose Adrian Orellana Paredes</p>
+          <a href="mailto:adriorellana90@gmail.com?subject=Questions">My emai</a>
+          <br>
+          <p>&#169 All rights reserved</p>
+      </section>
+  </footer>
+
+    
+
+</body>
+</html>

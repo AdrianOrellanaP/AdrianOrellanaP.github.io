@@ -1,0 +1,139 @@
+body{
+    background-color: #05A6A6;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+section#elemen.character1{
+    background-color: #0A2326;
+    max-width: 40%;
+    max-height: 60%;
+    margin-left: 5rem;
+    text-align: center;
+    color: white;
+}
+section#elemen2.character2{
+    background-color: #0A2326;
+    max-width: 40%;
+    margin-left: 50rem;
+margin-top: -43.2rem;
+text-align: center;
+color: white;
+}
+
+h1{
+    font-size: 3em;
+    text-align: center;
+}
+h2{
+    text-align: center;
+    font-size: 2em;
+}
+.instrucciones h3{
+    width: 98%;
+    font-size: 1.2em;
+    font-weight: lighter;
+    text-align: justify;
+}
+
+
+img{
+    display: block;
+    margin: 0 auto;
+        
+        
+}
+img.lena{
+    padding-left: 30rem;
+}
+.header{
+    background:  #050B0D;
+    color: white;
+    padding: 1rem 0;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+}
+.header a{
+    color: white;
+    text-decoration: none;
+
+}
+.logo-nav-container img{
+    width: 150px;
+    height: 75px;
+    padding-left: 25%;
+}
+.logo-nav-container{
+    display: flex;
+    align-items: center;
+}
+.header h3{
+    line-height: 1.3em;
+    font-size: 1.5rem;
+    padding-left: 2%;
+}
+.container{
+    width: 95%;
+    margin: 0 auto;
+
+} 
+.navigation{
+    background:  #035959;
+    padding: 0.5rem 0;
+    width: 65%;
+    text-align: center;
+    margin-left: 30%;
+}
+.navigation ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.navigation ul li{
+    display: inline-block;
+}
+.navigation ul li a{
+    display: block;
+    padding: 0.2rem 0.5rem;
+    transition: all 0.4s linear;
+    border-radius: 5px;
+    padding-left: 5rem;
+}
+.contenido {
+padding-top: 1rem;
+max-width: 500px;
+
+}
+.filtros{
+    margin-top: 0.5rem;
+}
+
+.remove{
+    padding-top: 0.5rem;
+}
+.filtrado{
+    margin-top: -48.5rem;
+    margin-left: 30rem;
+}
+
+.filtrado button{
+    margin-top: 20rem;
+}
+
+.footer{
+    background: #048C8C;
+    padding: 2rem 0;
+    text-align: center;
+    margin-top: 5rem;
+    margin-bottom: -2rem;
+    left: -8px;
+    top: 0;
+    width: 101%;
+    position: relative;
+}
+.navigation ul li a:hover{
+    background: #4C5958;
+}
+.instrucciones{
+    padding-top: 6rem;
+}
